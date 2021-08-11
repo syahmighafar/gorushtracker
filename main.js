@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-document.getElementById("trackbutton").addEventListener("click", function tracknumber(){
+document.getElementById("trackbutton").addEventListener("click", tracknumber);
 
+function tracknumber(){
     var responsejd = '';
     var json_responsejd = '';
     var responseo = '';
@@ -344,5 +345,5 @@ document.getElementById("trackbutton").addEventListener("click", function trackn
         };
     
         request.send(JSON.stringify(body));
-    });
+    }
 });
