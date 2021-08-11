@@ -12,7 +12,7 @@ var finalday = '';
 
 var request = new XMLHttpRequest();
 
-$("#trackbutton").click(function tracknumber() {
+function tracknumber() {
 
     document.getElementById("trackinghistorydetails").innerHTML = "";
     document.getElementById("trackingresultbox").style.display = 'none';
@@ -344,5 +344,5 @@ $("#trackbutton").click(function tracknumber() {
         };
     
         request.send(JSON.stringify(body));
-    });
+    }
 });
