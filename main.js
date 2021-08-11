@@ -12,7 +12,7 @@ var finalday = '';
 
 var request = new XMLHttpRequest();
 
-$("button").click(function tracknumber() {
+$("#trackbutton").click(function tracknumber() {
 
     document.getElementById("trackinghistorydetails").innerHTML = "";
     document.getElementById("trackingresultbox").style.display = 'none';
