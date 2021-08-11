@@ -1,18 +1,20 @@
-$(document).ready(function(){
-var responsejd = '';
-var json_responsejd = '';
-var responseo = '';
-var json_responseo = '';
-var responsefp = '';
-var json_responsefp = '';
-var counttaskhistory = 0;
+//$(document).ready(function(){
 
-var finaldate = '';
-var finalday = '';
-
-var request = new XMLHttpRequest();
 
 document.getElementById("trackbutton").addEventListener("click", function tracknumber(){
+
+    var responsejd = '';
+    var json_responsejd = '';
+    var responseo = '';
+    var json_responseo = '';
+    var responsefp = '';
+    var json_responsefp = '';
+    var counttaskhistory = 0;
+
+    var finaldate = '';
+    var finalday = '';
+
+    var request = new XMLHttpRequest();
 
     document.getElementById("trackinghistorydetails").innerHTML = "";
     document.getElementById("trackingresultbox").style.display = 'none';
@@ -345,4 +347,4 @@ document.getElementById("trackbutton").addEventListener("click", function trackn
     
         request.send(JSON.stringify(body));
     });
-});
+//});
