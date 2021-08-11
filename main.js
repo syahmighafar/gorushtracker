@@ -1,5 +1,5 @@
-$( document ).ready(function() {
-    var responsejd = '';
+$(document).ready(function(){
+var responsejd = '';
 var json_responsejd = '';
 var responseo = '';
 var json_responseo = '';
@@ -346,5 +346,3 @@ function tracknumber() {
         request.send(JSON.stringify(body));
     }
 });
-
-
