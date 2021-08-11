@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function(event) {
 document.getElementById("trackbutton").addEventListener("click", function tracknumber(){
 
     var responsejd = '';
@@ -344,3 +345,4 @@ document.getElementById("trackbutton").addEventListener("click", function trackn
     
         request.send(JSON.stringify(body));
     });
+});
