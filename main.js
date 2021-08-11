@@ -58,12 +58,20 @@ function tracknumber(){
                                     responsefp = this.responseText;
                                     json_responsefp = JSON.parse(responsefp);
 
-                                    id="trackingresultbox"
+                                    var agentname = '';
 
-                                    document.getElementById("trackingresultbox").style.display = 'inline';
-                                    document.getElementById("trackingresultbox2").style.display = 'inline';
-                                    document.getElementById("trackingagentname").innerHTML = json_responsefp.data.fleet_details[0].username;
-                                    document.getElementById("trackingnumberdetails").innerHTML = json_responsejd.data[0].job_id;
+                                if (json_responsefp.status == 100){
+                                    agentname = "Not yet assigned";
+                                }
+
+                                if (json_responsefp.status != 100){
+                                    agentname = json_responsefp.data.fleet_details[0].username;
+                                }
+
+                                document.getElementById("trackingresultbox").style.display = 'inline';
+                                document.getElementById("trackingresultbox2").style.display = 'inline';
+                                document.getElementById("trackingagentname").innerHTML = agentname;
+                                document.getElementById("trackingnumberdetails").innerHTML = json_responsejd.data[0].job_id;
 
                                     counttaskhistory = json_responsejd.data[0].task_history["length"];
 
