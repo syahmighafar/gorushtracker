@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 document.getElementById("trackbutton").addEventListener("click", tracknumber);
 
 function tracknumber(){
-    var jobidentitynum = ''';
+    var jobidentitynum = '';
     jobidentitynum = document.getElementById("jobid").value;
     document.getElementById('jobid').value = '';
     
