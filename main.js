@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 document.getElementById("trackbutton").addEventListener("click", tracknumber);
 
 function tracknumber(){
+    var jobidentitynum = ''';
+    jobidentitynum = document.getElementById("jobid").value;
+    document.getElementById('jobid').value = '';
+    
     var responsejd = '';
     var json_responsejd = '';
     var responseo = '';
@@ -17,6 +21,9 @@ function tracknumber(){
 
     document.getElementById("trackinghistorydetails").innerHTML = "";
     document.getElementById("trackingresultbox").style.display = 'none';
+    document.getElementById("trackingresultbox2").style.display = 'none';
+    
+    document.getElementById("loading").style.display = 'inline';
 
         request.open('POST', 'https://api.tookanapp.com/v2/get_job_details');
     
@@ -31,8 +38,6 @@ function tracknumber(){
                 json_responsejd = JSON.parse(responsejd);
 
                 if(json_responsejd.status != 404){
-                    document.getElementById('jobid').value = ''
-
                     request.open('POST', 'https://api.tookanapp.com/v2/get_job_details_by_order_id');
     
                     request.setRequestHeader('Content-Type', 'application/json');
@@ -67,7 +72,8 @@ function tracknumber(){
                                 if (json_responsefp.status != 100){
                                     agentname = json_responsefp.data.fleet_details[0].username;
                                 }
-
+                                        
+                                document.getElementById("loading").style.display = 'none';
                                 document.getElementById("trackingresultbox").style.display = 'inline';
                                 document.getElementById("trackingresultbox2").style.display = 'inline';
                                 document.getElementById("trackingagentname").innerHTML = agentname;
@@ -333,6 +339,7 @@ function tracknumber(){
                 }
 
                 if (json_responsejd.status == 404){
+                    document.getElementById("loading").style.display = 'none';
                     document.getElementById("trackingresultbox2").style.display = 'inline';
                     var para = document.createElement("P");
                     para.setAttribute("id", "wronginput");
@@ -348,7 +355,7 @@ function tracknumber(){
     
         var body = {
           'api_key': '51676580f24b091114132d38111925401ee4c2f328d978375e1f03',
-          'job_ids': [document.getElementById("jobid").value],
+          'job_ids': [jobidentitynum],
           'include_task_history': 1
         };
     
