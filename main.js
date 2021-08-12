@@ -22,6 +22,7 @@ function tracknumber(){
     document.getElementById("trackinghistorydetails").innerHTML = "";
     document.getElementById("trackingresultbox").style.display = 'none';
     document.getElementById("trackingresultbox2").style.display = 'none';
+    document.getElementById("wronginput").style.display = 'none';
     
     document.getElementById("loading").style.display = 'inline';
 
@@ -340,13 +341,7 @@ function tracknumber(){
 
                 if (json_responsejd.status == 404){
                     document.getElementById("loading").style.display = 'none';
-                    document.getElementById("trackingresultbox2").style.display = 'inline';
-                    var para = document.createElement("P");
-                    para.setAttribute("id", "wronginput");
-                    para.innerHTML = "<b>Please check your Tracking Number.</b>";
-                    document.getElementById("trackinghistorydetails").appendChild(para);
-                    document.getElementById("wronginput").style.color = "#b30000";
-                    document.getElementById("wronginput").style.textAlign = "center";
+                    document.getElementById("wronginput").style.display = 'inline';
                 }
 
 
