@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 document.getElementById("trackbutton").addEventListener("click", tracknumber);
 
 function tracknumber(){
+    document.getElementById("trackbutton").disabled = true;
+    
     var jobidentitynum = '';
     jobidentitynum = document.getElementById("jobid").value;
     document.getElementById('jobid').value = '';
@@ -76,6 +78,8 @@ function tracknumber(){
                                         
                                 var finalstatus = '';
                                 var finaldatewithtime = '';
+                                        
+                                document.getElementById("laststatusdetails").style.color = "#009933";
                                         
                                 document.getElementById("loading").style.display = 'none';
                                 document.getElementById("trackingagentname").innerHTML = agentname;
@@ -404,12 +408,21 @@ function tracknumber(){
                                             deliverynote = json_responsejd.data[0].task_history[i].description;
                                         }
                                     }
+                                        
+                                    if (finalstatus == "Delivered"){
+                                        document.getElementById("laststatusdetails").style.color = "#009933";
+                                    }
+
+                                    if (finalstatus == "Failed Delivery"){
+                                        document.getElementById("laststatusdetails").style.color = "#b30000";
+                                    }
                                     
                                     document.getElementById("laststatusdetails").innerHTML = finalstatus;
                                     document.getElementById("lastdaydatetimedetails").innerHTML = finaldatewithtime;
                                     document.getElementById("trackingresultbox").style.display = 'inline';
                                     document.getElementById("trackingresultbox2").style.display = 'inline';
-
+                                        
+                                    document.getElementById("trackbutton").disabled = false;
                                     }
                                 };
 
@@ -435,6 +448,7 @@ function tracknumber(){
                 if (json_responsejd.status == 404){
                     document.getElementById("loading").style.display = 'none';
                     document.getElementById("wronginput").style.display = 'inline';
+                    document.getElementById("trackbutton").disabled = false;
                 }
 
 
