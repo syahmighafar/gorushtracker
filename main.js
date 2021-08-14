@@ -79,7 +79,7 @@ function tracknumber(){
                                 var finalstatus = '';
                                 var finaldatewithtime = '';
                                         
-                                document.getElementById("laststatusdetails").style.color = "#009933";
+                                document.getElementById("laststatusdetails").style.color = "#000000";
                                         
                                 document.getElementById("loading").style.display = 'none';
                                 document.getElementById("trackingagentname").innerHTML = agentname;
