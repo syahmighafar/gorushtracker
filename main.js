@@ -304,6 +304,10 @@ function tracknumber(){
                                                 document.getElementById("trackinghistorydetails").appendChild(para);
                                             }
                                             
+                                            var para = document.createElement("P" + i + "img");
+                                            para.innerHTML = "<b>Proof Of Delivery: </b><br><br>";
+                                            document.getElementById("trackinghistorydetails").appendChild(para);
+                                            
                                             var img = document.createElement('img');
                                             img.setAttribute("id", "imguplaodedsign");
                                             img.src = imguploaded;
