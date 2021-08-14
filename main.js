@@ -277,6 +277,13 @@ function tracknumber(){
 
                                             countfacility = 0;
                                         }
+                                        
+                                        if(json_responsejd.data[0].task_history[i].type.includes('signature_image_added')){
+
+                                            var imguploaded = json_responsejd.data[0].task_history[i].description;
+
+                                            countfacility = 0;
+                                        }
 
                                         if(json_responsejd.data[0].task_history[i].description.includes('Successful at')){
                                             checkDate()
@@ -296,6 +303,11 @@ function tracknumber(){
                                                 para.innerHTML = "<b>Delivery Note: </b>" + deliverynote + "<br><br>";
                                                 document.getElementById("trackinghistorydetails").appendChild(para);
                                             }
+                                            
+                                            var img = document.createElement('img');
+                                            img.setAttribute("id", "imguplaodedsign");
+                                            img.src = imguploaded;
+                                            document.getElementById('trackinghistorydetails').appendChild(img);
                                         }
 
                                         if(json_responsejd.data[0].task_history[i].description.includes('Failed at')){
