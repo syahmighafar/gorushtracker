@@ -74,9 +74,10 @@ function tracknumber(){
                                     agentname = json_responsefp.data.fleet_details[0].username;
                                 }
                                         
+                                var finalstatus = '';
+                                var finaldatewithtime = '';
+                                        
                                 document.getElementById("loading").style.display = 'none';
-                                document.getElementById("trackingresultbox").style.display = 'inline';
-                                document.getElementById("trackingresultbox2").style.display = 'inline';
                                 document.getElementById("trackingagentname").innerHTML = agentname;
                                 document.getElementById("trackingnumberdetails").innerHTML = json_responsejd.data[0].job_id;
 
@@ -157,6 +158,38 @@ function tracknumber(){
 
                                             return finalday + ", " + d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
                                         }
+                                        
+                                        function getFullDateWithDayandTime(){
+                                            if (d.getDay() == 1){
+                                                finalday = "Monday"
+                                            }
+
+                                            if (d.getDay() == 2){
+                                                finalday = "Tuesday"
+                                            }
+
+                                            if (d.getDay() == 3){
+                                                finalday = "Wednesday"
+                                            }
+
+                                            if (d.getDay() == 4){
+                                                finalday = "Thursday"
+                                            }
+
+                                            if (d.getDay() == 5){
+                                                finalday = "Friday"
+                                            }
+
+                                            if (d.getDay() == 6){
+                                                finalday = "Saturday"
+                                            }
+
+                                            if (d.getDay() == 0){
+                                                finalday = "Sunday"
+                                            }
+
+                                            return finalday + ", " + d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear() + " at " + getTime();
+                                        }
 
                                         function checkDate(){
                                             if (getFullDate()!=finaldate){
@@ -180,6 +213,9 @@ function tracknumber(){
                                                 var para = document.createElement("P" + i + "ff");
                                                 para.innerHTML = "<b>Reason: </b>" + json_responsejd.data[0].task_history[i].reason + "<br><br>";
                                                 document.getElementById("trackinghistorydetails").appendChild(para);
+                                                
+                                                finaldatewithtime = getFullDateWithDayandTime();
+                                                finalstatus = "Failed";
                                             }
 
                                             if(json_responsejd.data[0].task_history[i].description.includes('to Successful')){
@@ -187,6 +223,9 @@ function tracknumber(){
                                                 var para = document.createElement("P" + i);
                                                 para.innerHTML = getTime() + " - " + "Go Rush Status Updated: <b>Successful</b>" + "<br><br>";
                                                 document.getElementById("trackinghistorydetails").appendChild(para);
+                                                
+                                                finaldatewithtime = getFullDateWithDayandTime();
+                                                finalstatus = "Successful";
                                             }
 
                                             if(json_responsejd.data[0].task_history[i].description.includes('to Unassigned')){
@@ -194,6 +233,9 @@ function tracknumber(){
                                                 var para = document.createElement("P" + i);
                                                 para.innerHTML = getTime() + " - " + "Go Rush Status Updated: <b>Unassigned</b>" + "<br><br>";
                                                 document.getElementById("trackinghistorydetails").appendChild(para);
+                                                
+                                                finaldatewithtime = getFullDateWithDayandTime();
+                                                finalstatus = "Unassigned";
                                             }
 
                                             if(json_responsejd.data[0].task_history[i].description.includes('to Started')){
@@ -201,6 +243,9 @@ function tracknumber(){
                                                 var para = document.createElement("P" + i);
                                                 para.innerHTML = getTime() + " - " + "Go Rush Status Updated: <b>Started</b>" + "<br><br>";
                                                 document.getElementById("trackinghistorydetails").appendChild(para);
+                                                
+                                                finaldatewithtime = getFullDateWithDayandTime();
+                                                finalstatus = "Started";
                                             }
                                         }
 
@@ -210,6 +255,9 @@ function tracknumber(){
                                             var para = document.createElement("P" + i);
                                             para.innerHTML = getTime() + " - " + "Consignor, <b>Order Placed</b>" + "<br><br>";
                                             document.getElementById("trackinghistorydetails").appendChild(para);
+                                            
+                                            finaldatewithtime = getFullDateWithDayandTime();
+                                            finalstatus = "Order Placed";
                                         }
 
                                         if((json_responsejd.data[0].task_history[i].description.includes('task via bulk'))&&(countassign < 1)&&(countassigned < 1)){
@@ -221,6 +269,9 @@ function tracknumber(){
 
                                             countassign = countassign + 1;
                                             countassigned = countassigned + 1;
+                                            
+                                            finaldatewithtime = getFullDateWithDayandTime();
+                                            finalstatus = "Undergoing Custom Clearance";
                                         }
 
                                         if((json_responsejd.data[0].task_history[i].description.includes('Assigned'))&&(countassign < 1)&&(countassigned < 1)){
@@ -232,6 +283,9 @@ function tracknumber(){
 
                                             countassign = countassign + 1;
                                             countassigned = countassigned + 1;
+                                            
+                                            finaldatewithtime = getFullDateWithDayandTime();
+                                            finalstatus = "Undergoing Custom Clearance";
                                         }
 
                                         if(json_responsejd.data[0].task_history[i].description.includes('Accepted at')){
@@ -246,6 +300,9 @@ function tracknumber(){
                                                 countaccept = countaccept + 1;
                                                 countassign = countassign + 1;
                                                 countassigned = countassigned + 1;
+                                                
+                                                finaldatewithtime = getFullDateWithDayandTime();
+                                                finalstatus = "Arrived in Go Rush";
                                             }
 
                                             if(countfacility < 1){
@@ -255,6 +312,9 @@ function tracknumber(){
                                                 document.getElementById("trackinghistorydetails").appendChild(para);
 
                                                 countfacility = countfacility + 1;
+                                                
+                                                finaldatewithtime = getFullDateWithDayandTime();
+                                                finalstatus = "Go Rush Sorting Facility";
                                             }
                                         }
 
@@ -266,6 +326,9 @@ function tracknumber(){
                                             document.getElementById("trackinghistorydetails").appendChild(para);
 
                                             countfacility = 0;
+                                            
+                                            finaldatewithtime = getFullDateWithDayandTime();
+                                            finalstatus = "Out For Delivery";
                                         }
 
                                         if(json_responsejd.data[0].task_history[i].description.includes('Arrived at')){
@@ -276,6 +339,9 @@ function tracknumber(){
                                             document.getElementById("trackinghistorydetails").appendChild(para);
 
                                             countfacility = 0;
+                                            
+                                            finaldatewithtime = getFullDateWithDayandTime();
+                                            finalstatus = "Arrived";
                                         }
                                         
                                         if(json_responsejd.data[0].task_history[i].type.includes('signature_image_added')){
@@ -312,6 +378,9 @@ function tracknumber(){
                                             img.setAttribute("id", "imguplaodedsign");
                                             img.src = imguploaded;
                                             document.getElementById('trackinghistorydetails').appendChild(img);
+                                            
+                                            finaldatewithtime = getFullDateWithDayandTime();
+                                            finalstatus = "Delivered";
                                         }
 
                                         if(json_responsejd.data[0].task_history[i].description.includes('Failed at')){
@@ -326,12 +395,20 @@ function tracknumber(){
                                             var para = document.createElement("P" + i + "f");
                                             para.innerHTML = "<b>Reason: </b>" + json_responsejd.data[0].task_history[i].reason + "<br><br>";
                                             document.getElementById("trackinghistorydetails").appendChild(para);
+                                            
+                                            finaldatewithtime = getFullDateWithDayandTime();
+                                            finalstatus = "Failed Delivery";
                                         }
 
                                         if(json_responsejd.data[0].task_history[i].type == "text_added"){
                                             deliverynote = json_responsejd.data[0].task_history[i].description;
                                         }
                                     }
+                                    
+                                    document.getElementById("laststatusdetails").innerHTML = finalstatus;
+                                    document.getElementById("lastdaydatetimedetails").innerHTML = finaldatewithtime;
+                                    document.getElementById("trackingresultbox").style.display = 'inline';
+                                    document.getElementById("trackingresultbox2").style.display = 'inline';
 
                                     }
                                 };
