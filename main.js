@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 document.getElementById("trackbutton").addEventListener("click", tracknumber);
 
 function tracknumber(){
-    document.getElementById("trackbutton").disabled = true;
+    document.getElementById("trackingnumberarea").style.display = 'none';
     
     var jobidentitynum = '';
     jobidentitynum = document.getElementById("jobid").value;
@@ -78,6 +78,7 @@ function tracknumber(){
                                         
                                 var finalstatus = '';
                                 var finaldatewithtime = '';
+                                var imguploaded = '';
                                         
                                 document.getElementById("laststatusdetails").style.color = "#000000";
                                         
@@ -92,6 +93,7 @@ function tracknumber(){
                                     var countaccept = 0;
                                     var countfacility = 0;
                                     var deliverynote = '';
+                                    var counts = 0;
 
                                     for(let i = 0; i  < counttaskhistory; i++){
 
@@ -350,7 +352,7 @@ function tracknumber(){
                                         
                                         if(json_responsejd.data[0].task_history[i].type.includes('signature_image_added')){
 
-                                            var imguploaded = json_responsejd.data[0].task_history[i].description;
+                                            imguploaded = json_responsejd.data[0].task_history[i].description;
 
                                             countfacility = 0;
                                         }
@@ -364,27 +366,15 @@ function tracknumber(){
                                             document.getElementById("trackinghistorydetails").appendChild(para);
                                             document.getElementById("successdelivery" + i).style.color = "#009933";
 
-                                            var para = document.createElement("P" + i + "s");
-                                            para.innerHTML = "<b>Address: </b>" + json_responsejd.data[0].job_address + "<br><br>" + "<b>Consignee Detail: </b>" + json_responsejd.data[0].customer_username + "<br><br>";
-                                            document.getElementById("trackinghistorydetails").appendChild(para);
-
                                             if(deliverynote!=""){
-                                                var para = document.createElement("P" + i + "sd");
-                                                para.innerHTML = "<b>Delivery Note: </b>" + deliverynote + "<br><br>";
-                                                document.getElementById("trackinghistorydetails").appendChild(para);
+                                                var para = document.createElement("P" + "dn");
+                                                para.innerHTML = "<b>Delivery Note: </b>" + deliverynote + "<br>";
+                                                document.getElementById("deliverynotearea").appendChild(para);
                                             }
                                             
-                                            var para = document.createElement("P" + i + "img");
-                                            para.innerHTML = "<b>Proof Of Delivery: </b><br><br>";
-                                            document.getElementById("trackinghistorydetails").appendChild(para);
-                                            
-                                            var img = document.createElement('img');
-                                            img.setAttribute("id", "imguplaodedsign");
-                                            img.src = imguploaded;
-                                            document.getElementById('trackinghistorydetails').appendChild(img);
-                                            
                                             finaldatewithtime = getFullDateWithDayandTime();
-                                            finalstatus = "Delivered";
+                                            finalstatus = "Successful";
+                                            counts = counts + 1;
                                         }
 
                                         if(json_responsejd.data[0].task_history[i].description.includes('Failed at')){
@@ -408,9 +398,17 @@ function tracknumber(){
                                             deliverynote = json_responsejd.data[0].task_history[i].description;
                                         }
                                     }
-                                        
-                                    if (finalstatus == "Delivered"){
+   
+                                    if (counts == 1){
                                         document.getElementById("laststatusdetails").style.color = "#009933";
+                                        document.getElementById("addressdetails").innerHTML = json_responsejd.data[0].job_address;
+                                        document.getElementById("consigneedetails").innerHTML = json_responsejd.data[0].customer_username;
+                                        var img = document.createElement('img');
+                                        img.setAttribute("id", "imguplaodedsign");
+                                        img.src = imguploaded;
+                                        document.getElementById('imguplaodedp').appendChild(img);
+                                        
+                                        document.getElementById("successfuldeliveryarea").style.display = 'block';
                                     }
 
                                     if (finalstatus == "Failed Delivery"){
@@ -419,10 +417,21 @@ function tracknumber(){
                                     
                                     document.getElementById("laststatusdetails").innerHTML = finalstatus;
                                     document.getElementById("lastdaydatetimedetails").innerHTML = finaldatewithtime;
-                                    document.getElementById("trackingresultbox").style.display = 'inline';
-                                    document.getElementById("trackingresultbox2").style.display = 'inline';
+                                    document.getElementById("trackingresultbox").style.display = 'block';
+                                    document.getElementById("trackingresultbox2").style.display = 'block';
                                         
-                                    document.getElementById("trackbutton").disabled = false;
+                                    document.getElementById("trackagain").style.display = 'block';
+
+                                    document.getElementById("trackbuttonagain").addEventListener("click", function(){
+                                        document.getElementById("trackagain").style.display = 'none';
+                                        document.getElementById("trackingnumberarea").style.display = 'block';
+                                        document.getElementById("trackinghistorydetails").innerHTML = "";
+                                        document.getElementById("imguplaodedp").innerHTML = "";
+                                        document.getElementById("deliverynotearea").innerHTML = "";
+                                        document.getElementById("trackingresultbox").style.display = 'none';
+                                        document.getElementById("trackingresultbox2").style.display = 'none';
+                                        document.getElementById("successfuldeliveryarea").style.display = 'none';
+                                    });
                                     }
                                 };
 
@@ -447,11 +456,9 @@ function tracknumber(){
 
                 if (json_responsejd.status == 404){
                     document.getElementById("loading").style.display = 'none';
-                    document.getElementById("wronginput").style.display = 'inline';
-                    document.getElementById("trackbutton").disabled = false;
+                    document.getElementById("wronginput").style.display = 'block';
+                    document.getElementById("trackingnumberarea").style.display = 'block';
                 }
-
-
             }
         };
     
