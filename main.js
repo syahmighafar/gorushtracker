@@ -92,7 +92,6 @@ function tracknumber(){
                                     var countassigned = 0;
                                     var countaccept = 0;
                                     var countfacility = 0;
-                                    var deliverynote = '';
                                     var counts = 0;
 
                                     for(let i = 0; i  < counttaskhistory; i++){
@@ -378,12 +377,6 @@ function tracknumber(){
                                             para.innerHTML = getTime() + " - " + "<b>Successful</b>" + "<br><br>";
                                             document.getElementById("trackinghistorydetails").appendChild(para);
                                             document.getElementById("successdelivery" + i).style.color = "#009933";
-
-                                            if(deliverynote!=""){
-                                                var para = document.createElement("P" + "dn");
-                                                para.innerHTML = "<b>Delivery Note: </b>" + deliverynote + "<br>";
-                                                document.getElementById("deliverynotearea").appendChild(para);
-                                            }
                                             
                                             finaldatewithtime = getFullDateWithDayandTime();
                                             finalstatus = "Successful";
@@ -407,9 +400,6 @@ function tracknumber(){
                                             finalstatus = "Failed Delivery";
                                         }
 
-                                        if(json_responsejd.data[0].task_history[i].type == "text_added"){
-                                            deliverynote = json_responsejd.data[0].task_history[i].description;
-                                        }
                                     }
    
                                     if (counts == 1){
@@ -440,7 +430,6 @@ function tracknumber(){
                                         document.getElementById("trackingnumberarea").style.display = 'block';
                                         document.getElementById("trackinghistorydetails").innerHTML = "";
                                         document.getElementById("imguploadedp").innerHTML = "";
-                                        document.getElementById("deliverynotearea").innerHTML = "";
                                         document.getElementById("trackingresultbox").style.display = 'none';
                                         document.getElementById("trackingresultbox2").style.display = 'none';
                                         document.getElementById("successfuldeliveryarea").style.display = 'none';
