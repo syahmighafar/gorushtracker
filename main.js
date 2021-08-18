@@ -350,6 +350,19 @@ function tracknumber(){
                                             finalstatus = "Arrived";
                                         }
                                         
+                                        if(json_responsejd.data[0].task_history[i].type.includes('text_added')){
+                                            checkDate()
+
+                                            var para = document.createElement("P" + i);
+                                            para.innerHTML = getTime() + " - " + " <b>Agent's Note: </b>" + json_responsejd.data[0].task_history[i].description + "<br><br>";
+                                            document.getElementById("trackinghistorydetails").appendChild(para);
+
+                                            countfacility = 0;
+                                            
+                                            finaldatewithtime = getFullDateWithDayandTime();
+                                            finalstatus = " <b>Agent's Note: </b>" + json_responsejd.data[0].task_history[i].description;
+                                        }
+                                        
                                         if(json_responsejd.data[0].task_history[i].type.includes('signature_image_added')){
 
                                             imguploaded = json_responsejd.data[0].task_history[i].description;
